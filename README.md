@@ -4,7 +4,7 @@
 
 </div>
 
-Este es mi repositorio de proyectos con los cuales conseguí la **certificación de freeCodeCamp** en su curso de Algoritmos y estructuras de datos de JavaScript. Espero que te pueda ayudar.
+Este es mi repositorio de proyectos con los cuales conseguí la **certificación de freeCodeCamp** en su curso de **Algoritmos y estructuras de datos de JavaScript**. Espero que te pueda ayudar.
 
 🗝 Puedes verificar aquí la veracidad de mi [**certificado**](https://www.freecodecamp.org/certification/AbrahamGalue/javascript-algorithms-and-data-structures).
 
