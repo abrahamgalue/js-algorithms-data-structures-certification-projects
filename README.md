@@ -8,7 +8,7 @@ Este es mi repositorio de proyectos con los cuales conseguí la **certificación
 
 🗝 Puedes verificar aquí la veracidad de mi [**certificado**](https://www.freecodecamp.org/certification/AbrahamGalue/javascript-algorithms-and-data-structures).
 
-Los **proyectos principales** para obtener el certificado y que se incluyen en la carpeta [```js-algorithms-and-data-structures-projects```]() son:
+Los **proyectos principales** para obtener el certificado y que se incluyen en la carpeta [```js-algorithms-and-data-structures-projects```](https://github.com/abrahamgalue/js-algorithms-data-structures-certification-projects/tree/main/js-algorithms-and-data-structures-projects) son:
 
 - Palindrome Checker
 - Roman Numeral Converter
