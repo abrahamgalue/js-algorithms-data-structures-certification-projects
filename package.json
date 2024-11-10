@@ -1,7 +1,8 @@
 {
   "name": "code-challenges",
   "version": "1.0.0",
-  "description": "<div align='center'>",
+  "description": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "vitest"
