@@ -1,0 +1,12 @@
+{
+  "name": "code-challenges",
+  "version": "1.0.0",
+  "description": "<div align='center'>",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
