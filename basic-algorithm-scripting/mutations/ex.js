@@ -8,14 +8,19 @@ The arguments ["hello", "hey"] should return false because the string hello does
 Lastly, ["Alien", "line"], should return true because all of the letters in line are present in Alien.
 */
 
-function mutation(arr) {
-    const letters = arr[1].toLowerCase();
-    const str = arr[0].toLowerCase();
-    // return [...letters].every(letter => str.includes(letter));
-    for (let i = 0; i < letters.length; i++) {
-        if (str.indexOf(letters[i]) < 0) return false;
-    }
-    return true;
+export const INVALID_ARG = 'The function only takes an array as a parameter'
+
+export function mutation(arr) {
+  if (arguments.length !== 1) throw new Error(INVALID_ARG)
+  if (arr.constructor !== Array) throw new Error(INVALID_ARG)
+
+  const letters = arr[1].toLowerCase();
+  const str = arr[0].toLowerCase();
+  // return [...letters].every(letter => str.includes(letter));
+  for (let i = 0; i < letters.length; i++) {
+    if (str.indexOf(letters[i]) < 0) return false;
+  }
+  return true;
 }
 
 mutation(["hello", "hey"]);
