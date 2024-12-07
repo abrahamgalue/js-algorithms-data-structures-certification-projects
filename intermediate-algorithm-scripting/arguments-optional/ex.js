@@ -16,7 +16,7 @@
  * If either argument isn't a valid number, return undefined.
  */
 
-function addTogether() {
+export function addTogether() {
   const [first, second] = arguments;
 
   if (typeof first === "number") {
