@@ -6,12 +6,16 @@ Compare two arrays and return a new array with any items only found in one of th
 Note: You can return the array with its elements in any order.
 */
 
-function diffArray(arr1, arr2) {
-  
+export const INVALID_UNDEFINED_ARG = 'The function receives two arrays as arguments'
+
+export function diffArray(arr1, arr2) {
+  if (arguments.length !== 2) throw new Error(INVALID_UNDEFINED_ARG);
+  if (arr1.constructor !== Array && arr2.constructor !== Array) throw new Error(INVALID_UNDEFINED_ARG);
+
   return arr1
     .concat(arr2)
     .filter(x => !arr1.includes(x) || !arr2.includes(x))
-  
+
   /* OTHER WAY
   return arr1.filter(x => !arr2.includes(x))
                  .concat(arr2.filter(x => !arr1.includes(x)))
