@@ -18,52 +18,45 @@ function dropElements(arr, func) {
 }
 */
 
+export const INVALID_ARG = 'The function receives an array and a function as arguments'
+
 // my version
-function dropElements(arr, func) {
+export function dropElements(arr, func) {
+  if (arguments.length !== 2) throw new Error(INVALID_ARG)
+  if (typeof arr !== 'string' && typeof func !== 'function') throw new Error(INVALID_ARG)
+
   // let a = arr.findIndex(el => func(el)) → Use ES6 findIndex()
   let sliceIndex = arr.findIndex(func);
   return sliceIndex < 0 ? [] : arr.slice(sliceIndex);
 }
 
 // test here
-console.log(
-  dropElements([1, 2, 3, 4], function (n) {
-    return n >= 3;
-  })
-);
+dropElements([1, 2, 3, 4], function (n) {
+  return n >= 3;
+})
 // → [3, 4]
 
-console.log(
-  dropElements([0, 1, 0, 1], function (n) {
-    return n === 1;
-  })
-);
+dropElements([0, 1, 0, 1], function (n) {
+  return n === 1;
+})
 // → [1, 0, 1]
 
-console.log(
-  dropElements([1, 2, 3], function (n) {
-    return n > 0;
-  })
-);
+dropElements([1, 2, 3], function (n) {
+  return n > 0;
+})
 // → [1, 2, 3]
 
-console.log(
-  dropElements([1, 2, 3, 4], function (n) {
-    return n > 5;
-  })
-);
+dropElements([1, 2, 3, 4], function (n) {
+  return n > 5;
+})
 // → []
 
-console.log(
-  dropElements([1, 2, 3, 7, 4], function (n) {
-    return n > 3;
-  })
-);
+dropElements([1, 2, 3, 7, 4], function (n) {
+  return n > 3;
+})
 // → [7, 4]
 
-console.log(
-  dropElements([1, 2, 3, 9, 2], function (n) {
-    return n > 2;
-  })
-);
+dropElements([1, 2, 3, 9, 2], function (n) {
+  return n > 2;
+})
 // → [3, 9, 2]
