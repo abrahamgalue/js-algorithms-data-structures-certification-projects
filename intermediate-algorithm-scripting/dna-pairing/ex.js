@@ -17,16 +17,21 @@
  * The character and its pair are paired up in an array,
  * and all the arrays are grouped into one encapsulating
  * array.
- */
+*/
 
-function pairElement(str) {
-  // obj for pair lookup
-  const pairing = {
-    A: 'T',
-    T: 'A',
-    C: 'G',
-    G: 'C'
-  }
+// obj for pair lookup
+const pairing = {
+  A: 'T',
+  T: 'A',
+  C: 'G',
+  G: 'C'
+}
+
+export const INVALID_ARG = 'The function only receives a string as an argument'
+
+export function pairElement(str) {
+  if (arguments.length !== 1) throw new Error(INVALID_ARG)
+  if (typeof str !== 'string') throw new Error(INVALID_ARG);
 
   // map character to array of character and matching pair
   return str
@@ -35,10 +40,10 @@ function pairElement(str) {
 }
 
 // test here
-console.log(pairElement("GCG"))
+pairElement("GCG")
 // → [ [ 'G', 'C' ], [ 'C', 'G' ], [ 'G', 'C' ] ]
 
-console.log(pairElement("TTGAG"))
+pairElement("TTGAG")
 /* → 
 [ [ 'T', 'A' ],
   [ 'T', 'A' ],
@@ -47,7 +52,7 @@ console.log(pairElement("TTGAG"))
   [ 'G', 'C' ] ]
 */
 
-console.log(pairElement("CTCTA"))
+pairElement("CTCTA")
 /* →
 [ [ 'C', 'G' ],
   [ 'T', 'A' ],
