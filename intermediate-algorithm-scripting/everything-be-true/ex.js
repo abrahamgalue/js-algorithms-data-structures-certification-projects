@@ -16,90 +16,89 @@
  * either dot notation or [] notation.
  */
 
-function truthCheck(collection, pre) {
+export const INVALID_ARGS = 'The function receives an array of objects (first argument) and a property of those objects (second argument)'
+
+export function truthCheck(collection, pre) {
+  if (arguments.length !== 2) throw new Error(INVALID_ARGS)
+  if (!(collection instanceof Array) && typeof pre !== 'string') throw new Error(INVALID_ARGS)
+
   return collection.every((x) => x[pre]);
 }
 
 // test here
-console.log(
-  truthCheck(
-    [
-      { name: "Quincy", role: "Founder", isBot: false },
-      { name: "Naomi", role: "", isBot: false },
-      { name: "Camperbot", role: "Bot", isBot: true },
-    ],
-    "isBot"
-  )
-);
+
+truthCheck(
+  [
+    { name: "Quincy", role: "Founder", isBot: false },
+    { name: "Naomi", role: "", isBot: false },
+    { name: "Camperbot", role: "Bot", isBot: true },
+  ],
+  "isBot"
+)
 // → false
 
-console.log(
-  truthCheck(
-    [
-      { name: "Quincy", role: "Founder", isBot: false },
-      { name: "Naomi", role: "", isBot: false },
-      { name: "Camperbot", role: "Bot", isBot: true },
-    ],
-    "name"
-  )
-);
+
+truthCheck(
+  [
+    { name: "Quincy", role: "Founder", isBot: false },
+    { name: "Naomi", role: "", isBot: false },
+    { name: "Camperbot", role: "Bot", isBot: true },
+  ],
+  "name"
+)
 // → true
 
-console.log(
-  truthCheck(
-    [
-      { name: "Quincy", role: "Founder", isBot: false },
-      { name: "Naomi", role: "", isBot: false },
-      { name: "Camperbot", role: "Bot", isBot: true },
-    ],
-    "role"
-  )
-);
+
+truthCheck(
+  [
+    { name: "Quincy", role: "Founder", isBot: false },
+    { name: "Naomi", role: "", isBot: false },
+    { name: "Camperbot", role: "Bot", isBot: true },
+  ],
+  "role"
+)
 // → false
 
-console.log(
-  truthCheck(
-    [
-      { name: "Pikachu", number: 25, caught: 3 },
-      { name: "Togepi", number: 175, caught: 1 },
-    ],
-    "number"
-  )
-);
+
+truthCheck(
+  [
+    { name: "Pikachu", number: 25, caught: 3 },
+    { name: "Togepi", number: 175, caught: 1 },
+  ],
+  "number"
+)
 // → true
 
-console.log(
-  truthCheck(
-    [
-      {
-        id: 1,
-        data: { url: "https://freecodecamp.org", name: "freeCodeCamp" },
-      },
-      {
-        id: 2,
-        data: { url: "https://coderadio.freecodecamp.org/", name: "CodeRadio" },
-      },
-      { id: null, data: {} },
-    ],
-    "data"
-  )
-);
+
+truthCheck(
+  [
+    {
+      id: 1,
+      data: { url: "https://freecodecamp.org", name: "freeCodeCamp" },
+    },
+    {
+      id: 2,
+      data: { url: "https://coderadio.freecodecamp.org/", name: "CodeRadio" },
+    },
+    { id: null, data: {} },
+  ],
+  "data"
+)
 // → true
 
-console.log(
-  truthCheck(
-    [
-      {
-        id: 1,
-        data: { url: "https://freecodecamp.org", name: "freeCodeCamp" },
-      },
-      {
-        id: 2,
-        data: { url: "https://coderadio.freecodecamp.org/", name: "CodeRadio" },
-      },
-      { id: null, data: {} },
-    ],
-    "id"
-  )
-);
+
+truthCheck(
+  [
+    {
+      id: 1,
+      data: { url: "https://freecodecamp.org", name: "freeCodeCamp" },
+    },
+    {
+      id: 2,
+      data: { url: "https://coderadio.freecodecamp.org/", name: "CodeRadio" },
+    },
+    { id: null, data: {} },
+  ],
+  "id"
+)
 // → false
