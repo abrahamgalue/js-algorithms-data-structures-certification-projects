@@ -25,7 +25,12 @@
  * and the GM value of earth is 398600.4418 km3s-2.
  */
 
-function orbitalPeriod(arr) {
+export const INVALID_ARG = 'The function receives as a parameter an array with objects "{name: \'name\', avgAlt: avgAlt}"'
+
+export function orbitalPeriod(arr) {
+  if (arguments.length !== 1) throw new Error(INVALID_ARG)
+  if (arr.constructor !== Array) throw new Error(INVALID_ARG)
+
   const GM = 398600.4418;
   const earthRadius = 6367.4447;
   return arr.map(({ name, avgAlt }) => {
@@ -38,11 +43,9 @@ function orbitalPeriod(arr) {
 }
 
 // test here
-console.log(orbitalPeriod([{ name: "sputnik", avgAlt: 35873.5553 }]));
-console.log(
-  orbitalPeriod([
-    { name: "iss", avgAlt: 413.6 },
-    { name: "hubble", avgAlt: 556.7 },
-    { name: "moon", avgAlt: 378632.553 },
-  ])
-);
+orbitalPeriod([{ name: "sputnik", avgAlt: 35873.5553 }])
+orbitalPeriod([
+  { name: "iss", avgAlt: 413.6 },
+  { name: "hubble", avgAlt: 556.7 },
+  { name: "moon", avgAlt: 378632.553 },
+])
