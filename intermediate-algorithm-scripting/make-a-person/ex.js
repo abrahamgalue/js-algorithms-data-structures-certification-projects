@@ -45,7 +45,14 @@ const Person = function(firstAndLast) {
 };
 */
 
-const Person = function (firstAndLast) {
+export const INVALID_ARG = 'The class needs a string with the person\'s first and last name as an argument'
+const fullnameRules = /^[A-Za-zÀ-ÿ]+ [A-Za-zÀ-ÿ]+$/;
+
+export const Person = function (firstAndLast) {
+
+  if (!fullnameRules.test(firstAndLast)) throw new Error(INVALID_ARG);
+
+
   let firstName = firstAndLast.split(" ")[0];
   let lastName = firstAndLast.split(" ")[1];
 
