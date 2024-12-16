@@ -14,7 +14,7 @@
  * in UTF-16 an integer between 0 and 65535
  * https://www.asciitable.com/ 
 */
-console.log('\'a\' Unicode is:', 'hola'.charCodeAt(3))
+'\'a\' Unicode is:', 'hola'.charCodeAt(3)
 // 97
 
 /**
@@ -22,22 +22,28 @@ console.log('\'a\' Unicode is:', 'hola'.charCodeAt(3))
  * returns a string created by using
  * the specified sequence of Unicode values
 */
-console.log(String.fromCharCode(65, 98, 114, 97, 104, 97, 109), '\n')
+String.fromCharCode(65, 98, 114, 97, 104, 97, 109), '\n'
 // "ABC"
 
+export const INVALID_ARG = 'The function receives a string as an argument'
+export const NO_MISSING_LETTER_MESSAGE = 'No letter missing'
 
+export function fearNotLetter(str) {
+  if (arguments.length !== 1) throw new Error(INVALID_ARG)
+  if (typeof str !== 'string') throw new Error(INVALID_ARG)
 
-function fearNotLetter(str) {
   for (let i = 0; i < str.length - 1; i++) {
     if (str.charCodeAt(i + 1) - str.charCodeAt(i) != 1) {
       return String.fromCharCode(str.charCodeAt(i) + 1)
     }
   }
+
+  return NO_MISSING_LETTER_MESSAGE
 }
 
 // test here
-console.log(fearNotLetter("abce")) // d
-console.log(fearNotLetter("abcdefghjklmno")) // i
-console.log(fearNotLetter("stvwx")) // u
-console.log(fearNotLetter("bcdf")) // e
-console.log(fearNotLetter("abcdefghijklmnopqrstuvwxyz")) // undefined
+fearNotLetter("abce") // d
+fearNotLetter("abcdefghjklmno") // i
+fearNotLetter("stvwx") // u
+fearNotLetter("bcdf") // e
+fearNotLetter("abcdefghijklmnopqrstuvwxyz") // undefined
