@@ -15,18 +15,28 @@
  * in all lowercase.
  */
 
-function translatePigLatin(str) {
-  if (str.match(/^[aeiou]/)) return str + 'way'
+export const INVALID_ARG_ERROR = 'The function receives a string as an argument'
+export const INVALID_STRING_ERROR = 'The string must contain only one word'
 
-  const consonantGroup = str.match(/^[^aeiou]+/)[0]
-  return str.substring(consonantGroup.length) + consonantGroup + 'ay'
+export function translatePigLatin(str) {
+  if (arguments.length !== 1) throw new Error(INVALID_ARG_ERROR)
+  if (typeof str !== 'string') throw new Error(INVALID_ARG_ERROR)
+
+  const stringWithoutSpaces = str.replace(/\s/g, '')
+
+  if (stringWithoutSpaces.length === 0) throw new Error(INVALID_STRING_ERROR);
+
+  if (stringWithoutSpaces.match(/^[aeiou]/)) return stringWithoutSpaces + 'way'
+
+  const consonantGroup = stringWithoutSpaces.match(/^[^aeiou]+/)[0]
+  return stringWithoutSpaces.substring(consonantGroup.length) + consonantGroup + 'ay'
 }
 
 // test here
-console.log(translatePigLatin("california"))
-console.log(translatePigLatin("paragraphs"))
-console.log(translatePigLatin("glove"))
-console.log(translatePigLatin("algorithm"))
-console.log(translatePigLatin("eight"))
-console.log(translatePigLatin("schwartz"))
-console.log(translatePigLatin("rhythm"))
+translatePigLatin("california")
+translatePigLatin("paragraphs")
+translatePigLatin("glove")
+translatePigLatin("algorithm")
+translatePigLatin("eight")
+translatePigLatin("schwartz")
+translatePigLatin("rhythm")
