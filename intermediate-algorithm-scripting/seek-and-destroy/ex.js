@@ -6,7 +6,12 @@ You will be provided with an initial array (the first argument in the destroyer 
 Note: You have to use the arguments object.
 */
 
-function destroyer(arr, ...args) {
+export const INVALID_ARG_ERROR = 'The function receives an array and other data types as arguments'
+
+export function destroyer(arr, ...args) {
+  if (arguments.length <= 1) throw new Error(INVALID_ARG_ERROR)
+  if (!(arr instanceof Array)) throw new Error(INVALID_ARG_ERROR)
+
   return arr.filter(x => !args.includes(x))
 }
 
@@ -23,17 +28,17 @@ function destroyer(arr) {
 
 */
 
-console.log(destroyer([1, 2, 3, 1, 2, 3], 2, 3))
+destroyer([1, 2, 3, 1, 2, 3], 2, 3)
 // → [ 1, 1 ]
 
-console.log(destroyer([1, 2, 3, 5, 1, 2, 3], 2, 3))
+destroyer([1, 2, 3, 5, 1, 2, 3], 2, 3)
 // → [ 1, 5, 1 ]
 
-console.log(destroyer([3, 5, 1, 2, 2], 2, 3, 5))
+destroyer([3, 5, 1, 2, 2], 2, 3, 5)
 // → [ 1 ]
 
-console.log(destroyer(["tree", "hamburger", 53], "tree", 53))
+destroyer(["tree", "hamburger", 53], "tree", 53)
 // → [ 'hamburger' ]
 
-console.log(destroyer(["possum", "trollo", 12, "safari", "hotdog", 92, 65, "grandma", "bugati", "trojan", "yacht"], "yacht", "possum", "trollo", "safari", "hotdog", "grandma", "bugati", "trojan"))
+destroyer(["possum", "trollo", 12, "safari", "hotdog", 92, 65, "grandma", "bugati", "trojan", "yacht"], "yacht", "possum", "trollo", "safari", "hotdog", "grandma", "bugati", "trojan")
 // → [ 12, 92, 65 ]
