@@ -16,29 +16,39 @@
 */
 
 function gcd(a, b) {
-    return (b === 0) ? a : gcd(b, a % b)
+  return (b === 0) ? a : gcd(b, a % b)
 }
 
 function lcm(a, b) {
-    return a * b / gcd(a, b);
+  return a * b / gcd(a, b);
 }
 
-function smallestCommons([a, b]) {
-    a = Math.min(...arguments[0])
-    b = Math.max(...arguments[0])
+export const INVALID_ARG_ERROR = 'The function receives an array with two numbers'
 
-    let result = a
+export function smallestCommons(arr = []) {
+  if (arr.length !== 2) {
+    throw new Error(INVALID_ARG_ERROR)
+  }
 
-    for (let i = a + 1; i <= b; i++) {
-        result = lcm(result, i)
-    }
+  let [a, b] = arr
 
-    return result
+  if (typeof a !== 'number' || typeof b !== 'number') throw new Error(INVALID_ARG_ERROR)
+
+  a = Math.min(...arr)
+  b = Math.max(...arr)
+
+  let result = a
+  for (let i = a + 1; i <= b; i++) {
+    result = lcm(result, i)
+  }
+
+  return result;
 }
+
 
 // test here
-console.log(smallestCommons([1, 5]))
-console.log(smallestCommons([5, 1]))
-console.log(smallestCommons([2, 10]))
-console.log(smallestCommons([1, 13]))
-console.log(smallestCommons([23, 18]))
+smallestCommons([1, 5])
+smallestCommons([5, 1])
+smallestCommons([2, 10])
+smallestCommons([1, 13])
+smallestCommons([23, 18])
