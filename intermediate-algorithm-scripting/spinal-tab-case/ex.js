@@ -5,7 +5,13 @@
  * all-lowercase-words-joined-by-dashes.
  */
 
-function spinalCase(str) {
+export const INVALID_ARG_ERROR = 'The function receives a string as an argument'
+
+export function spinalCase(str) {
+  if (arguments.length !== 1) throw new Error(INVALID_ARG_ERROR)
+
+  if (typeof str !== 'string') throw new Error(INVALID_ARG_ERROR)
+
   return str
     .split(/\s|_|(?=[A-Z])/)
     .join('-')
@@ -13,8 +19,8 @@ function spinalCase(str) {
 }
 
 // test here
-console.log(spinalCase('This Is Spinal Tap'))
-console.log(spinalCase("thisIsSpinalTap"))
-console.log(spinalCase("The_Andy_Griffith_Show"))
-console.log(spinalCase("Teletubbies say Eh-oh"))
-console.log(spinalCase("AllThe-small Things"))
+spinalCase('This Is Spinal Tap')
+spinalCase("thisIsSpinalTap")
+spinalCase("The_Andy_Griffith_Show")
+spinalCase("Teletubbies say Eh-oh")
+spinalCase("AllThe-small Things")
