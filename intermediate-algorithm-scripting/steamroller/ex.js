@@ -1,4 +1,11 @@
-function steamrollArray(arr) {
+export const INVALID_ARG_ERROR = 'The function only receives an array as a parameter'
+
+export function steamrollArray(arr) {
+  if (arguments.length !== 1) throw new Error(INVALID_ARG_ERROR)
+
+  if (!(arr instanceof Array)) throw new Error(INVALID_ARG_ERROR)
+
+
   const flat = [].concat(...arr);
   return flat.some(Array.isArray) ? steamrollArray(flat) : flat;
   /* other way
@@ -32,14 +39,14 @@ function steamrollArray(arr) {
 }
 
 // test here
-console.log(steamrollArray([[["a"]], [["b"]]]));
+steamrollArray([[["a"]], [["b"]]])
 // → [ 'a', 'b' ]
 
-console.log(steamrollArray([1, [2], [3, [[4]]]]));
+steamrollArray([1, [2], [3, [[4]]]])
 // → [ 1, 2, 3, 4 ]
 
-console.log(steamrollArray([1, [], [3, [[4]]]]));
+steamrollArray([1, [], [3, [[4]]]])
 // → [ 1, 3, 4 ]
 
-console.log(steamrollArray([1, {}, [3, [[4]]]]));
+steamrollArray([1, {}, [3, [[4]]]])
 // → [ 1, {}, 3, 4 ]
