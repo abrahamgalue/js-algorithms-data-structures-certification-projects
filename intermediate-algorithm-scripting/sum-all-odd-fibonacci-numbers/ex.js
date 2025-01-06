@@ -14,7 +14,13 @@
  * 3, and 5.
  */
 
-function sumFibs(num) {
+export const INVALID_ARG_ERROR = 'The function receives a number as argument'
+
+export function sumFibs(num) {
+  if (arguments.length !== 1) throw new Error(INVALID_ARG_ERROR)
+  if (typeof num !== 'number') throw new Error(INVALID_ARG_ERROR)
+  if (num === 0) return num
+
   const fib = [0, 1]
 
   // create a list of fibonacci numbers
@@ -29,9 +35,9 @@ function sumFibs(num) {
 }
 
 // test here
-console.log(sumFibs(1))
-console.log(sumFibs(1000))
-console.log(sumFibs(4000000))
-console.log(sumFibs(4))
-console.log(sumFibs(75024))
-console.log(sumFibs(75025))
+sumFibs(1)
+sumFibs(1000)
+sumFibs(4000000)
+sumFibs(4)
+sumFibs(75024)
+sumFibs(75025)
