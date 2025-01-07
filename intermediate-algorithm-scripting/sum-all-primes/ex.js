@@ -11,7 +11,12 @@
  * numbers that are less than or equal to num.
 */
 
-function sumPrimes(num) {
+export const UNDEFINED_ARG_ERROR = 'The function only receives a number as an argument'
+
+export function sumPrimes(num) {
+  if (arguments.length !== 1) throw new Error(UNDEFINED_ARG_ERROR)
+  if (typeof num !== 'number') throw new Error(UNDEFINED_ARG_ERROR)
+
   let primes = []
 
   for (let i = 2; i <= num; i++) {
@@ -21,8 +26,8 @@ function sumPrimes(num) {
   return primes.reduce((acc, elem) => acc + elem)
 }
 
-console.log(sumPrimes(10))
+sumPrimes(10)
 // → 17
 
-console.log(sumPrimes(977))
+sumPrimes(977)
 // → 73156
