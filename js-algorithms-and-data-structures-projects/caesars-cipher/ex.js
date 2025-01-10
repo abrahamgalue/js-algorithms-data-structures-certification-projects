@@ -17,31 +17,37 @@
  * but do pass them on
  */
 
-function rot13(str) {
-  const MAX_RANGE = 90;
+export const ERR_INVALID_ARG = 'The function only receives a string as an argument'
+
+export function rot13(str) {
+  if (arguments.length !== 1) throw new Error(ERR_INVALID_ARG)
+
+  if (typeof str !== "string") throw new Error(ERR_INVALID_ARG)
+
+  const MAX_RANGE = 90
 
   let arrUnicode = str.split("").map((x) => {
-    const elemUnicode = x.charCodeAt();
-    return /[A-Z]/.test(x) ? elemUnicode : x;
+    const elemUnicode = x.charCodeAt()
+    return /[A-Z]/.test(x) ? elemUnicode : x
   });
 
   let arrStr = arrUnicode.map((elem) => {
     if (typeof elem === "number") {
       for (let i = 0; i < 13; i++) {
-        elem++;
-        if (elem > MAX_RANGE) elem = 65;
+        elem++
+        if (elem > MAX_RANGE) elem = 65
       }
-      return String.fromCharCode(elem);
+      return String.fromCharCode(elem)
     }
-    return elem;
+    return elem
   });
 
-  return arrStr.join("");
+  return arrStr.join("")
 }
 
 // test here
-console.log(rot13("SERR PBQR PNZC")); // FREE CODE CAMP
-console.log(rot13("SERR CVMMN!")); // FREE PIZZA!
-console.log(rot13("SERR YBIR?")); // FREE LOVE?
-console.log(rot13("GUR DHVPX OEBJA SBK WHZCF BIRE GUR YNML QBT."));
+rot13("SERR PBQR PNZC") // FREE CODE CAMP
+rot13("SERR CVMMN!") // FREE PIZZA!
+rot13("SERR YBIR?") // FREE LOVE?
+rot13("GUR DHVPX OEBJA SBK WHZCF BIRE GUR YNML QBT.")
 // THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.
