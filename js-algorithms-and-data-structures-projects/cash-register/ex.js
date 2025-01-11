@@ -46,9 +46,28 @@
  * ]
 */
 
-function checkCashRegister(price, cash, cid) {
-  const changeArray = [];
-  let changeToGive = cash - price;
+export const ERR_INVALID_ARGUMENTS = "Invalid arguments provided"
+export const ERR_INVALID_CID_FORMAT = "Invalid cid format provided"
+
+const validate2DArr = (arr) => {
+  return arr.some(
+    (unit) =>
+      !(unit instanceof Array) ||
+      unit.length !== 2 ||
+      typeof unit[0] !== "string" ||
+      typeof unit[1] !== "number"
+  )
+}
+
+export function checkCashRegister(price, cash, cid) {
+  if (arguments.length !== 3) throw new Error(ERR_INVALID_ARGUMENTS)
+
+  if (typeof price !== 'number' || typeof cash !== 'number' || !(cid instanceof Array)) throw new Error(ERR_INVALID_ARGUMENTS)
+
+  if (validate2DArr(cid)) throw new Error(ERR_INVALID_CID_FORMAT)
+
+  const changeArray = []
+  let changeToGive = cash - price
 
   const UNIT_AMOUNT = {
     "PENNY": 0.01,
@@ -64,47 +83,47 @@ function checkCashRegister(price, cash, cid) {
 
   let totalCID = cid
     .reduce((sum, [, amount]) => sum + amount, 0)
-    .toFixed(2);
+    .toFixed(2)
 
   if (changeToGive > totalCID) {
-    return { status: "INSUFFICIENT_FUNDS", change: changeArray };
+    return { status: "INSUFFICIENT_FUNDS", change: changeArray }
   } else if (changeToGive.toFixed(2) === totalCID) {
-    return { status: "CLOSED", change: cid };
+    return { status: "CLOSED", change: cid }
   } else {
-    cid = cid.reverse();
+    cid = cid.reverse()
 
     for (let elem of cid) {
-      let temp = [elem[0], 0];
+      let temp = [elem[0], 0]
       while (changeToGive >= UNIT_AMOUNT[elem[0]] && elem[1] > 0) {
-        elem[1] -= UNIT_AMOUNT[elem[0]];
-        temp[1] += UNIT_AMOUNT[elem[0]];
+        elem[1] -= UNIT_AMOUNT[elem[0]]
+        temp[1] += UNIT_AMOUNT[elem[0]]
 
-        changeToGive -= UNIT_AMOUNT[elem[0]];
-        changeToGive = changeToGive.toFixed(2);
+        changeToGive -= UNIT_AMOUNT[elem[0]]
+        changeToGive = changeToGive.toFixed(2)
       }
       if (temp[1] > 0) {
-        changeArray.push(temp);
+        changeArray.push(temp)
       }
     }
   }
 
   return changeToGive > 0 ?
     { status: "INSUFFICIENT_FUNDS", change: [] } :
-    { status: "OPEN", change: changeArray };
+    { status: "OPEN", change: changeArray }
 }
 
 // test here
-console.log(checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]))
+checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]])
 // → {status: "OPEN", change: [["QUARTER", 0.5]]}
 
-console.log(checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]))
+checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]])
 // → {status: "OPEN", change: [["TWENTY", 60], ["TEN", 20], ["FIVE", 15], ["ONE", 1], ["QUARTER", 0.5], ["DIME", 0.2], ["PENNY", 0.04]]}
 
-console.log(checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]))
+checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])
 // → {status: "INSUFFICIENT_FUNDS", change: []}
 
-console.log(checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]))
+checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])
 // → {status: "INSUFFICIENT_FUNDS", change: []}
 
-console.log(checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]))
+checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])
 // → {status: "CLOSED", change: [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]}
