@@ -21,8 +21,15 @@
  * in upper-case.
  */
 
-function convertToRoman(num) {
-  let result = "";
+export const ERR_INVALID_ARG_TYPE = "The argument must be a positive integer"
+export const ERR_OUT_OF_RANGE = "The argument must be between 1 and 3999"
+
+export function convertToRoman(num) {
+  if (typeof num !== "number" || !Number.isInteger(num)) throw new Error(ERR_INVALID_ARG_TYPE)
+
+  if (num < 1 || num > 3999) throw new Error(ERR_OUT_OF_RANGE)
+
+  let result = ""
 
   const romanNumerals = {
     M: 1000,
@@ -38,20 +45,20 @@ function convertToRoman(num) {
     V: 5,
     IV: 4,
     I: 1,
-  };
+  }
 
   for (let key in romanNumerals) {
     while (num >= romanNumerals[key]) {
-      result += key;
-      num -= romanNumerals[key];
+      result += key
+      num -= romanNumerals[key]
     }
   }
 
-  return result;
+  return result
 }
 
 // test here
-console.log(convertToRoman(777)); // DCCLXXVII
-console.log(convertToRoman(333)); // CCCXXXIII
-console.log(convertToRoman(7)); // VII
-console.log(convertToRoman(3)); // III
+convertToRoman(777) // DCCLXXVII
+convertToRoman(333) // CCCXXXIII
+convertToRoman(7) // VII
+convertToRoman(3) // III
